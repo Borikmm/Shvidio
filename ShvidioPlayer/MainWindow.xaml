@@ -1,0 +1,103 @@
+﻿<Window x:Class="ShvidioPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShvidioPlayer"
+        mc:Ignorable="d"
+        Title="VideoPlayer" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="100"></Setter>
+                </Style>
+            </Style.Resources>
+
+            <Setter Property="Margin" Value="0 0 10 0"/>
+            <Setter Property="Width" Value="100px"/>
+            <Setter Property="FontSize" Value="20px"/>
+            <Setter Property="Height" Value="30px"/>
+            <Setter Property="Background" Value="{StaticResource Btn_area_bg}"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ButtonSpeedStyle">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="./media/speed.jpg"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </Window.Resources>
+
+
+
+
+    <Grid Background="{StaticResource Main_Background}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35px"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" x:Name="ToolBar" Background="{StaticResource Slider_Player_Background}" MouseDown="ToolBar_MouseDown">
+
+            <Border BorderBrush="Blue" BorderThickness="2"></Border>
+
+            <Grid HorizontalAlignment="Left">
+                <Border BorderBrush="Blue" BorderThickness="2">
+                    <TextBlock HorizontalAlignment="Left" Text="ShVideoPlayer" FontSize="20px" Foreground="#FFCAC5DC"></TextBlock>
+                </Border>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Height="25px" Width="50px" Margin="0 0 10 0" x:Name="Rol_up_button" Click="Rol_up_button_Click">
+                    <Image Height="25px" Width="50px" Source="media/rol_up.png"/>
+                </Button>
+                <Button Height="25px" Width="50px" x:Name="Max_window_button" Click="Max_window_button_button_Click">
+                    <Image Height="25px" Width="50px" Source="media/full.png"/>
+                </Button>
+                <Button Height="25px" Width="50px" x:Name="Close_button" Click="Close_button_Click">
+                    <Image Height="25px" Width="50px" Source="media/close.png"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+
+        <MediaElement Grid.Row="1" x:Name="media" HorizontalAlignment="Center" Margin="5" VerticalAlignment="Top" UnloadedBehavior="Manual" Loaded="media_Loaded" LoadedBehavior="Manual"/>
+        
+        <StackPanel Grid.Row="2" >
+            <Grid Height="80" Margin="0 0 0 0" Background="{StaticResource Btn_area_bg}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Open" x:Name="BtnOpen" Click="BtnOpen_Click"/>
+                    <Button Content="{Binding PlayButtonName}" x:Name="BtnPlay" Click="BtnPlay_Click"/>
+                    <Button Content="Stop" x:Name="BtnStop" Click="BtnStop_Click"/>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Center">
+                    <Image Source="./media/volume.png" Width="40" Height="40px" HorizontalAlignment="Right" Margin="0 0 65 0"></Image>
+                    <Slider HorizontalAlignment="Right" x:Name="SoundValue" Width="150px" Height="20px" Margin="0 0 10 0" Value="{Binding Volume, ElementName=media}" Maximum="1" Background="{StaticResource Slider_Player_Background}"/>
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Center">
+                    <Button HorizontalAlignment="Left" Style="{StaticResource ButtonSpeedStyle}" Margin="45 0 0 0" Width="50px" Height="40px" Click="Change_tax">
+                        
+                    </Button>
+
+                    <Slider HorizontalAlignment="Left" x:Name="SpeedValue" Width="150px" Height="20px" Margin="0 0 10 0" Value="{Binding SpeedRatio, ElementName=media}" Maximum="2" Background="{StaticResource Slider_Player_Background}"/>
+                </StackPanel>
+
+            </Grid>
+
+            <StackPanel Background="{StaticResource Slider_Player_Background}">
+                <Slider Height="20px" x:Name="PlayerSlider" LargeChange="1" PreviewMouseLeftButtonUp="PlayerSlider_PreviewMouseLeftButtonUp" Background="{StaticResource Slider_Player_Background}"/>
+                <TextBlock Background="Azure" HorizontalAlignment="Center" x:Name="Time_video" Width="200px" TextAlignment="Center" Margin="0 0 0 5"/>
+            </StackPanel>
+            
+
+
+        </StackPanel>
+    </Grid>
+</Window>
